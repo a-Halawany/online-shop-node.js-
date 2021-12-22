@@ -1,0 +1,21 @@
+<%-include('./parts/header.ejs')%> <%-include('./parts/navbar.ejs')%>
+<div class="container">
+  <%if(addressError.length !== 0){%>
+  <p class="alert alert-danger text-center my-3"><%=addressError[0].msg%></p>
+  <%}%>
+  <form action="/orders/verify-order" method="post" class="my-5 text-center">
+    <div class="input-group mb-3 w-50" style="margin: 0 auto">
+      <span class="input-group-text">Enter Your Address : </span>
+      <input type="text" class="form-control" name="address" />
+    </div>
+
+    <input type="hidden" value="<%=order._id%>" name="_id" />
+    <input type="hidden" value="<%=order.name%>" name="name" />
+    <input type="hidden" value="<%=order.amount%>" name="amount" />
+    <input type="hidden" value="<%=order.price%>" name="price" />
+    <input type="hidden" value="<%=order.userId%>" name="userId" />
+    <input type="hidden" value="<%=order.productId%>" name="productId" />
+    <input type="submit" value="Order" class="btn btn-success btn-lg" />
+  </form>
+</div>
+<%-include('./parts/footer.ejs')%>

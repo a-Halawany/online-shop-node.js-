@@ -1,0 +1,65 @@
+<%-include('./parts/header.ejs')%> <%-include('./parts/navbar.ejs')%>
+<div class="container text-center">
+  <%if(productAdded.length !==0){%>
+  <P class="alert alert-success text-center my-2"> <%=productAdded%> </P>
+  <%}%>
+  <h3 class="my-3">Add Product</h3>
+  <form
+    action="/admin/add-product"
+    method="post"
+    class="form m-3"
+    enctype="multipart/form-data"
+  >
+    <input
+      type="text"
+      name="name"
+      placeholder="Name"
+      class="form-control my-3"
+    />
+    <%let nameError = validationError.find(err=>err.param === 'name')%>
+    <%if(nameError){%>
+    <p class="alert alert-danger"><%=nameError.msg%></p>
+    <%}%>
+    <input
+      type="number"
+      name="price"
+      placeholder="Price"
+      class="form-control my-3"
+    />
+    <%let priceError = validationError.find(err=>err.param === 'price')%>
+    <%if(priceError){%>
+    <p class="alert alert-danger"><%=priceError.msg%></p>
+    <%}%>
+    <textarea
+      name="description"
+      placeholder="Description"
+      rows="3"
+      class="form-control my-3"
+    ></textarea>
+    <%let descriptionError = validationError.find(err=>err.param ===
+    'description')%> <%if(descriptionError){%>
+    <p class="alert alert-danger"><%=descriptionError.msg%></p>
+    <%}%>
+    <select class="form-control my-3" name="category">
+      <option value="none">Choose a category ...</option>
+      <option value="clothes">Clothes</option>
+      <option value="phones">Phone</option>
+      <option value="computers">Laptop</option>
+    </select>
+    <%let categoryError = validationError.find(err=>err.param === 'category')%>
+    <%if(categoryError){%>
+    <p class="alert alert-danger"><%=categoryError.msg%></p>
+    <%}%>
+    <input type="file" name="image" class="form-control my-3" />
+    <%let imageError = validationError.find(err=>err.param === 'image')%>
+    <%if(imageError){%>
+    <p class="alert alert-danger"><%=imageError.msg%></p>
+    <%}%>
+    <input
+      type="submit"
+      value="Add Product"
+      class="btn btn-outline-secondary my-3"
+    />
+  </form>
+</div>
+<%-include('./parts/footer.ejs')%>

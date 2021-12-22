@@ -1,0 +1,70 @@
+<%-include('./parts/header.ejs')%> <%-include('./parts/navbar.ejs')%>
+<div class="container mt-3">
+  <%if(orders.length === 0){%>
+  <p class="alert alert-danger text-center">There is no Products</p>
+  <%}else{%>
+  <table class="table table-dark table-striped text-center">
+    <thead>
+      <th>no</th>
+      <th>Product Name</th>
+      <th>Amount</th>
+      <th>Cost</th>
+      <th>Address</th>
+      <th>Status</th>
+      <th>order Date</th>
+      <th>Action</th>
+    </thead>
+    <% for( let i = 0; i < orders.length; i++ ) {%>
+    <tr>
+      <td><%=i+1%></td>
+      <td>
+        <a href="/product/id/<%=orders[i].productId%>"><%=orders[i].name%></a>
+      </td>
+      <td><%=orders[i].amount%></td>
+      <td><%=orders[i].amount * orders[i].price%> $</td>
+      <td><%=orders[i].address%></td>
+      <td><%=orders[i].status%></td>
+      <td>
+        <%=orders[i].createdAt.getFullYear()+"/"+orders[i].createdAt.getMonth()
+        + "/" + orders[i].createdAt.getDate() %>
+      </td>
+      <form method="post">
+        <input type="hidden" name="orderId" value="<%=orders[i]._id%>" />
+        <td>
+          <%if(orders[i].status === 'pending'){%>
+          <input
+            type="submit"
+            value="Cancel"
+            formaction="/orders/cancelOne"
+            class="btn btn-danger"
+          />
+          <%}%>
+        </td>
+      </form>
+    </tr>
+    <%}%>
+    <tfoot class="fw-bold">
+      <tr>
+        <td colspan="2"></td>
+        <%let totalAmount = 0,totalPrice=0; orders.forEach(element => { %>
+        <%totalAmount +=element.amount; totalPrice += (element.price *
+        element.amount) }) %>
+        <td><%=totalAmount%></td>
+        <td><%=totalPrice%> $</td>
+        <td colspan="3"></td>
+        <form method="post">
+          <td>
+            <input
+              type="submit"
+              value="Cancel All"
+              class="btn btn-danger"
+              formaction="/orders/cancelAll"
+            />
+          </td>
+        </form>
+      </tr>
+    </tfoot>
+  </table>
+  <%}%>
+</div>
+<%-include('./parts/footer.ejs')%>

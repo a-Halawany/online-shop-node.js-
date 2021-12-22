@@ -1,0 +1,36 @@
+<%- include('./parts/header.ejs') %> <%- include('./parts/navbar.ejs') %>
+<div class="container text-center">
+  <form action="/login" method="post">
+    <br />
+    <%if(authErr.length !== 0){%>
+    <p class="alert alert-danger"><%=authErr%></p>
+    <%}%>
+    <br />
+    <input
+      type="email"
+      name="email"
+      placeholder="E-mail"
+      class="form-control"
+      style="max-width: 300px; margin: 0 auto"
+    /><br />
+    <%let emailErr = validationErr.find(err=>err.param === 'email')%>
+    <%if(emailErr){%>
+    <p class="alert alert-danger"><%= emailErr.msg%></p>
+    <%}%>
+    <input
+      type="password"
+      name="password"
+      placeholder="Password"
+      class="form-control"
+      style="max-width: 300px; margin: 0 auto"
+    /><br />
+    <%let passwordErr = validationErr.find(err=>err.param === 'password')%>
+    <%if(passwordErr){%>
+    <p class="alert alert-danger"><%= passwordErr.msg%></p>
+    <%}%>
+    <input type="submit" value="Login" class="btn btn-primary" />
+  </form>
+  <br />
+  <div>Don't have account ? <a href="/signup">Create Account</a></div>
+</div>
+<%- include('./parts/footer.ejs') %>

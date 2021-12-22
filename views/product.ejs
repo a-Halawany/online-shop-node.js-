@@ -1,0 +1,52 @@
+<%- include('./parts/header.ejs') %> <%- include('./parts/navbar.ejs') %>
+
+<div class="container text-center">
+  <%if(product === null){%>
+  <p class="alert alert-danger text-center my-3">There is no Products</p>
+  <%}else{%>
+  <div class="row align-items-center">
+    <div class="col col-12 col-md-6 my-3">
+      <div class="card" style="width: fit-content;">
+        <img
+          src="/<%= product.image %>"
+          alt="<%=product.name%>"
+          class="card-img-top"
+          style="max-width: 300px ; margin:0 auto;"
+        />
+        <div class="card-body">
+          <form action="/cart" method="post" style="text-align: center">
+            <input type="hidden" name="name" value="<%=product.name%>" />
+            <input type="hidden" name="price" value="<%=product.price%>" />
+            <input type="hidden" name="_id" value="<%=product._id%>" />
+            <input
+              type="hidden"
+              name="redirectTo"
+              value="/product/id/<%=product._id%>"
+            />
+            <input
+              type="number"
+              name="amount"
+              class="form-control"
+              placeholder="Amount"
+              style="max-width: 300px; margin: 0 auto"
+            />
+            <br />
+            <%if(validationError.length !==0){%>
+            <div class="alert alert-danger"><%=validationError[0].msg%></div>
+            <%}%>
+            <input type="submit" value="Add to cart" class="btn btn-primary" />
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="col col-12 col-md-6 product-detail">
+      <br />
+      <h3><%=product.name%></h3>
+      <h5>Price : <%=product.price%> $</h5>
+      <p><%=product.description%></p>
+    </div>
+  </div>
+  <%}%>
+</div>
+
+<%- include('./parts/footer.ejs') %>

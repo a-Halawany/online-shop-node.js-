@@ -1,0 +1,76 @@
+<%- include('./parts/header.ejs') %> <%- include('./parts/navbar.ejs') %>
+
+<div class="container text-center">
+  <br />
+  <%if(authErr.length !== 0){%>
+  <br />
+  <div class="alert alert-danger" style="width: 50%; margin: 0 auto">
+    <%=authErr[0] %>
+  </div>
+  <%}%>
+  <br />
+  <form action="/signup" method="post">
+    <input
+      type="text"
+      name="username"
+      placeholder="Username"
+      style="max-width: 300px; margin: 0 auto"
+      class="form-control"
+    /><br />
+    <%let userErr = validationErr.find(err=>err.param === "username")%>
+    <%if(userErr){%>
+    <p
+      class="alert alert-danger"
+      style="height: 50%; width: fit-auto; margin: 0 auto"
+    >
+      <%= userErr.msg%>
+    </p>
+    <%}%>
+    <input
+      type="email"
+      name="email"
+      placeholder="Email"
+      class="form-control"
+      style="max-width: 300px; margin: 0 auto"
+    />
+    <br />
+    <%let emailErr = validationErr.find(err=>err.param === "email")%>
+    <%if(emailErr){%>
+    <p class="alert alert-danger"><%= emailErr.msg%></p>
+    <%}%>
+    <input
+      type="password"
+      name="password"
+      placeholder="Password"
+      style="max-width: 300px; margin: 0 auto"
+      class="form-control"
+    /><br />
+    <%let passwordErr = validationErr.find(err=>err.param === "password")%>
+    <%if(passwordErr){%>
+    <p class="alert alert-danger"><%= passwordErr.msg%></p>
+    <%}%>
+    <input
+      type="password"
+      name="confirmPassword"
+      placeholder="Confirm Password"
+      style="max-width: 300px; margin: 0 auto"
+      class="form-control"
+    /><br />
+    <%let confirmPasswordErr = validationErr.find(err=>err.param
+    ==="confirmPassword")%> <%if(confirmPasswordErr){%>
+    <p class="alert alert-danger"><%= confirmPasswordErr.msg%></p>
+    <%}%>
+    <input
+      type="submit"
+      value="Create Account"
+      class="btn btn-primary"
+      style="display: block; margin: 0 auto"
+    />
+  </form>
+  <br />
+  <div class="text-center">
+    You already have an Account ? <a href="/login">Login</a>
+  </div>
+</div>
+
+<%- include('./parts/footer.ejs') %>
