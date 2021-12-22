@@ -14,12 +14,15 @@ const AdminRouter = require('./routes/admin.routes')
 
 const app = express();
 
-app.use(express.static(path.join(__dirname, 'assets')));
+// app.use(express.static(path.join(__dirname, 'assets')));
 app.use(express.static(path.join(__dirname, 'images')));
+app.use('/css', express.static(path.join(__dirname, 'node_modules/bootstrap/dist/css')))
+app.use('/js', express.static(path.join(__dirname, 'node_modules/bootstrap/dist/js')))
+app.use('/js', express.static(path.join(__dirname, 'node_modules/jquery/dist')))
 app.use(flash())
 
 const STORE = new SessionStore({
-    uri: 'mongodb+srv://ahmadmamdooh:ahmadmamdooh@cluster0.hkwmq.mongodb.net/online-shop?retryWrites=true&w=majority',
+    uri:'mongodb+srv://ahmadmamdooh:adminadmin@firstcluster.oy5v2.mongodb.net/online-shop?retryWrites=true&w=majority',
     collection: 'sessions'
 })
 
