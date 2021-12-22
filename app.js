@@ -22,7 +22,7 @@ app.use('/js', express.static(path.join(__dirname, 'node_modules/jquery/dist')))
 app.use(flash())
 
 const STORE = new SessionStore({
-    uri:'mongodb+srv://ahmadmamdooh:adminadmin@firstcluster.oy5v2.mongodb.net/online-shop?retryWrites=true&w=majority',
+    uri: 'mongodb+srv://ahmadmamdooh:adminadmin@firstcluster.oy5v2.mongodb.net/online-shop?retryWrites=true&w=majority',
     collection: 'sessions'
 })
 
