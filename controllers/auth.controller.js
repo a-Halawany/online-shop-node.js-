@@ -21,7 +21,7 @@ exports.getLogin = (req, res, next) => {
 exports.postSignup = (req, res, next) => {
     if (validationResult(req).isEmpty()) {
         authModle
-            .createNewUser(req.body.username, req.body.email, req.body.password)
+            .createNewUser(req.body.username, req.body.email.toLowerCase(), req.body.password)
             .then(_ => {
                 res.redirect('/login')
             }).catch(err => {
@@ -36,7 +36,7 @@ exports.postSignup = (req, res, next) => {
 }
 exports.postLogin = (req, res, next) => {
     if (validationResult(req).isEmpty()) {
-        authModle.login(req.body.email, req.body.password)
+        authModle.login(req.body.email.toLowerCase(), req.body.password)
             .then((user) => {
                 req.session.isAdmin = user.isAdmin
                 req.session.userId = user.id
