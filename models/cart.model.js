@@ -11,7 +11,7 @@ const cartSchema = mongoose.Schema({
 
 const CartItem = mongoose.model('cart', cartSchema);
 
-const DB_URL = 'mongodb+srv://ahmadmamdooh:adminadmin@firstcluster.oy5v2.mongodb.net/online-shop?retryWrites=true&w=majority'
+const DB_URL = process.env.DATABASE_URI;
 
 exports.addNewItem = data => {
     return new Promise((resolve, reject) => {
