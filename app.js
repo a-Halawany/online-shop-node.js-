@@ -36,10 +36,6 @@ app.use(session({
 app.set('view engine', 'ejs');
 app.set('views', 'views') // Defalut
 
-app.use('/', (req, res, next) => {
-    res.set('Content-Type', 'text/plain');
-    next()
-})
 
 app.use('/', homeRouter)
 app.use('/product', productRouter)
