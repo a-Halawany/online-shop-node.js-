@@ -1,24 +1,22 @@
 const router = require('express').Router();
-const cartController = require('../controllers/cart.controller')
 const bodyParser = require('body-parser')
+
+const cartController = require('../controllers/cart.controller')
 const authGuard = require('./guards/all.guard')
-const check = require('express-validator').check
+const validatorMW = require('./validator/check.validator')
+
 
 
 router.post('/', authGuard.isAuth, bodyParser.urlencoded({ extended: true }),
-    check('amount')
-        .notEmpty().withMessage("amount is required")
-        .isInt({ min: 1 }).withMessage('amount must be grater than 0'),
+    validatorMW.amount,
     cartController.postCart
 )
 
 router.get('/', authGuard.isAuth, cartController.getCart)
 
 router.post('/save', authGuard.isAuth, bodyParser.urlencoded({ extended: true }),
-    check('amount')
-        .notEmpty().withMessage("amount is required")
-        .isInt({ min: 1 }).withMessage('amount must be grater than 0')
-    , cartController.updateAmount
+    validatorMW.amount,
+    cartController.updateAmount
 )
 
 router.post('/delete', authGuard.isAuth, bodyParser.urlencoded({ extended: true }), cartController.delete)

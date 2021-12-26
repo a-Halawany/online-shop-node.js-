@@ -1,10 +1,10 @@
 const router = require('express').Router();
-const check = require('express-validator').check
 const multer = require('multer')
 const bodyParser = require('body-parser')
 
 const adminController = require('../controllers/admin.controller')
 const authGuard = require('./guards/all.guard')
+const validatorMW = require('./validator/check.validator')
 
 router.get('/orders', authGuard.isAuth, authGuard.Admin, adminController.getMangOrder)
 
@@ -20,19 +20,12 @@ router.post('/add-product', authGuard.isAuth, authGuard.Admin, multer({
         }
     }),
 }).single('image'),
-    check('image').custom((value, { req }) => {
-        if (req.file) return true
-        else throw "Image is Required"
-    }),
-    check('name').notEmpty().withMessage('Name is Required'),
-    check('price').notEmpty().withMessage('price is Required')
-        .isInt({ min: 1 }).withMessage('the Price should be more than 1 $'),
-    check('description').notEmpty().withMessage('Description is Required'),
-    check('category').custom((value, { req }) => {
-        if (value === 'none') throw "Select a valid Category"
-        else return true
-    })
-    , adminController.postAddProduct
+    validatorMW.image,
+    validatorMW.name,
+    validatorMW.price,
+    validatorMW.description,
+    validatorMW.caregory,
+    adminController.postAddProduct
 )
 
 router.post('/delete-product', authGuard.isAuth, authGuard.Admin, bodyParser.urlencoded({ extended: true })
@@ -55,9 +48,8 @@ router.get('/orders/:email', authGuard.isAuth, authGuard.Admin, adminController.
 
 router.post('/orders/email', authGuard.isAuth, authGuard.Admin,
     bodyParser.urlencoded({ extended: true }),
-    check('email').notEmpty().withMessage('Email is Required')
-        .isEmail().withMessage('Enter a valid Email!')
-    , adminController.getEmail
+    validatorMW.email,
+    adminController.getEmail
 )
 
 
