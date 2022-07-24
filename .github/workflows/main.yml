@@ -1,31 +1,3 @@
-Skip to content
-Search or jump to…
-Pull requests
-Issues
-Marketplace
-Explore
- 
-@a-Halawany 
-a-Halawany
-/
-githubActions
-Private
-Code
-Issues
-Pull requests
-Actions
-Projects
-Security
-Insights
-Settings
-Merge pull request #3 from a-Halawany/master CI #7
-Summary
-Usage
-Workflow file
-Jobs
-build
-Workflow file for this run
-.github/workflows/main.yml at 8a516e1
 # This is a basic workflow to help you get started with Actions
 
 name: CI
